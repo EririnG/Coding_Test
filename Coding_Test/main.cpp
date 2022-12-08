@@ -1,35 +1,34 @@
 #include <string>
 #include <vector>
-
+#include <algorithm>
+#include <iostream>
 using namespace std;
 
-int solution(string s) {
-    int answer = 0;
-
-    while (!s.empty())
-    {
-        char x = s[0];
-        int a = 0, b = 0, i = 0;
-        while(true)
-        {
-            if (x == s[i])
-                ++a;
-            else
-                ++b;
-            ++i;
-
-            if (a == b)
-                break;
-        }
-        s.erase(0, i);
-        ++answer;
-    }
-
-    return answer;
+string solution(string s)
+{
+	string answer = "";
+	string tmp;
+	vector<int> v1;
+	for (int i = 0; i < s.size(); i++)
+	{
+		if (s[i] == ' ')
+		{
+			v1.push_back(atoi(tmp.c_str()));
+			tmp.clear();
+		}
+		else
+		{
+			tmp += s[i];
+		}
+	}
+	v1.push_back(atoi(tmp.c_str()));
+	sort(v1.begin(), v1.end(), greater<int>());
+	answer += to_string(v1.back()) + " " + to_string(v1.front());
+	return answer;
 }
+
 int main()
 {
-    string s = "banana";
-    int a = solution(s);
-    return 0;
+	cout << solution("1 2 3 4");
+	return 0;
 }
