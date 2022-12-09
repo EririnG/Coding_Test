@@ -1,34 +1,29 @@
 #include <string>
 #include <vector>
-#include <algorithm>
-#include <iostream>
+
 using namespace std;
 
-string solution(string s)
-{
-	string answer = "";
-	string tmp;
-	vector<int> v1;
-	for (int i = 0; i < s.size(); i++)
-	{
-		if (s[i] == ' ')
-		{
-			v1.push_back(atoi(tmp.c_str()));
-			tmp.clear();
-		}
-		else
-		{
-			tmp += s[i];
-		}
-	}
-	v1.push_back(atoi(tmp.c_str()));
-	sort(v1.begin(), v1.end(), greater<int>());
-	answer += to_string(v1.back()) + " " + to_string(v1.front());
-	return answer;
+int solution(int chicken) {
+    int answer = 0;
+    int coupon = 0;
+    while (0 != chicken)
+    {
+        answer += chicken / 10;
+        coupon += chicken % 10;
+        chicken /= 10;
+        if (coupon >= 10)
+        {
+            ++answer;
+            coupon -= 9;
+        }
+    }
+
+    return answer;
 }
 
 int main()
 {
-	cout << solution("1 2 3 4");
+    int a = 1081;
+    solution(a);
 	return 0;
 }
