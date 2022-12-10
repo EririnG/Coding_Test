@@ -3,21 +3,27 @@
 
 using namespace std;
 
-string solution(string s) {
-    string answer = "";
+int solution(int chicken) {
+    int answer = 0;
+    int coupon = 0;
+    while (0 != chicken)
+    {
+        answer += chicken / 10;
+        coupon += chicken % 10;
+        chicken /= 10;
+        if (coupon >= 10)
+        {
+            ++answer;
+            coupon -= 9;
+        }
+    }
 
-    answer += toupper(s[0]);
-    for (int i = 1; i < s.size(); ++i) {
-        if (' ' == s[i - 1])
-            answer += toupper(s[i]);
-        else
-            answer += tolower(s[i]);
-    }J
     return answer;
 }
+
 int main()
 {
-    string a = "for the last week";
+    int a = 1081;
     solution(a);
 	return 0;
 }
