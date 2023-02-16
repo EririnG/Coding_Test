@@ -3,27 +3,46 @@
 
 using namespace std;
 
-int solution(int chicken) {
+int solution(int n, vector<int> lost, vector<int> reserve) {
     int answer = 0;
-    int coupon = 0;
-    while (0 != chicken)
+    vector<int> students(n, 1);
+    for (int i = 0; i < lost.size(); ++i)
     {
-        answer += chicken / 10;
-        coupon += chicken % 10;
-        chicken /= 10;
-        if (coupon >= 10)
+        --students[lost[i] - 1];
+    }
+    for (int i = 0; i < reserve.size(); ++i)
+    {
+        ++students[reserve[i] - 1];
+    }
+    for (int i = 0; i < students.size(); ++i)
+    {
+        if (0 == students[i])
         {
-            ++answer;
-            coupon -= 9;
+            if (2 == students[i + 1])
+            {
+                ++students[i];
+                --students[i + 1];
+            }
+        }
+    }
+    for (int i = 1; i < students.size(); ++i)
+    {
+        if (0 == students[i])
+        {
+            if (2 == students[i - 1])
+            {
+                ++students[i];
+                --students[i - 1];
+            }
         }
     }
 
-    return answer;
-}
+    for (int i = 0; i < students.size(); ++i)
+    {
+        if (0 < students[i])
+            ++answer;
+    }
 
-int main()
-{
-    int a = 1081;
-    solution(a);
-	return 0;
+
+    return answer;
 }
